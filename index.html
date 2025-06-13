@@ -133,6 +133,14 @@
         amountBGN = amountBGN || 0;
         amountEUR = amountEUR || 0;
 
+        for (let num of [price, amountBGN, amountEUR]) {
+            const parts = num.toString().split(".");
+            if ( parts.length === 2 && parts[1].length > 2) {
+                alert("Въведете числа с до 2 десетични знака.");
+                return;
+            }
+        }
+
         if (price <= 0 || (amountBGN <= 0 && amountEUR <= 0)) {
             alert("Цената и поне едната платена сума трябва да са повече от 0.");
             document.getElementById('result').value = '';
