@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Calculator</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 2px solid #554471;
+            border-radius: 10px;
+            color: #333;
+        }
+
+        h2 {
+            font-family: 'Pattaya', cursive;
+            color: #554471;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 1000;
+        }
+
+        .input-with-suffix input {
+            width: 100%;
+            padding: 8px 50px 8px 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        input[readonly] {
+            background-color: #bababa;
+        }
+
+        .input-with-suffix span {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #554471;
+            font-size: 14px;
+            font-weight: bold;
+            pointer-events: none;
+        }
+
+        button, a {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            min-width: 100%;
+            font-size: 20px;
+            background-color: #554471;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #6a5a8f;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Ресто Калкулатор</h2>
+
+<label for="price">Цена в ЛЕВА (до 2 знака):</label>
+<input type="number" id="price" step="0.01" min="0.01" placeholder="примерно 12.34">
+<span class="currency-label">BGN</span>
+
+<label for="amountBGN">Платено в ЛЕВА (до 2 знака):</label>
+<input type="number" id="amountBGN" step="0.01" min="0.01" placeholder="примерно 10.00">
+<span class="currency-label">BGN</span>
+<label for="amountEUR">Платено в ЕВРО (до 2 знака):</label>
+<input type="number" id="amountEUR" step="0.01" min="0.01" placeholder="примерно 2.00">
+<span class="currency-label">EUR</span>
+
+<label for="remains">Не достигат в ЕВРО:</label>
+<input type="text" id="remains" readonly>
+<span class="currency-label">EUR</span>
+
+<label for="change">Ресто в ЕВРО:</label>
+<input type="text" id="change" readonly>
+<span class="currency-label">EUR</span>
+
+<button id="btn" onclick="calculate()">Сметни</button>
+<button id="coffee" onclick="window.open('https://tinyurl.com/avvx8d8u')">Дарете кафе на програмиста :)</button>
+
+<script>
+    function roundCustom(num) {
+        if (num < 0) {
+            num *= -1;
+        }
+        const parts = num.toString().split('.');
+        if (parts.length < 2 || parts[1].length < 3) {
+            return Number(num).toFixed(2);
+        }
+
+        const thirdDigit = parseInt(parts[1][2]);
+        let rounded = Math.floor(num * 100) / 100;
+
+        if (thirdDigit >= 5) {
+            rounded += 0.01;
+        }
+
+        return rounded.toFixed(2);
+    }
+
+    function calculate() {
+        let price = parseFloat(document.getElementById('price').value);
+        let amountBGN = parseFloat(document.getElementById('amountBGN').value);
+        let amountEUR = parseFloat(document.getElementById('amountEUR').value);
+
+        if (isNaN(price) || (isNaN(amountBGN) && isNaN(amountEUR))) {
+            alert("Въведете валидни числа.");
+            return;
+        }
+
+        price = price || 0;
+        amountBGN = amountBGN || 0;
+        amountEUR = amountEUR || 0;
+
+        if (price <= 0 || (amountBGN <= 0 && amountEUR <= 0)) {
+            alert("Цената и поне едната платена сума трябва да са повече от 0.");
+            document.getElementById('result').value = '';
+            return;
+        }
+
+        const differenceBGN = amountBGN - price;
+        const converted = differenceBGN / 1.95583 + amountEUR;
+        const result = roundCustom(converted);
+
+        if (converted < 0) {
+            document.getElementById('change').value = 0;
+            document.getElementById('remains').value = result;
+        } else {
+            document.getElementById('change').value = result;
+            document.getElementById('remains').value = 0;
+        }
+    }
+</script>
+
+</body>
+</html>
