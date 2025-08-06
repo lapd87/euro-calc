@@ -1,7 +1,7 @@
-# 💶 EuroChange — Ресто Калкулатор
+# 💶 EuroCalc
 
-**EuroChange** is a lightweight offline calculator app (wrapped as an Android APK) that helps calculate **change in Euro** when payment is made in a mix of **Bulgarian Leva (BGN)** and **EUR**.  
-Ideal for waiters, bartenders, or shopkeepers who handle both currencies.
+**EuroCalc** is a lightweight offline calculator app (wrapped as an Android APK) that helps calculate **change in Euro** when payment is made in a mix of **Bulgarian Leva (BGN)** and **EUR**.  
+Ideal for waiters, bartenders, or shopkeepers who will handle both currencies during January 2026.
 
 ---
 
@@ -22,11 +22,11 @@ Ideal for waiters, bartenders, or shopkeepers who handle both currencies.
 
 ### 💻 Web Version
 
-Just open `index.html` in any modern browser.
+Just open the `index.html` in any modern browser.
 
 ### 🌐 Online Version
 
-Try it online: [https://lapd87.github.io/euro-calc/](https://lapd87.github.io/euro-calc/)
+Try it online [here](https://lapd87.github.io/euro-calc/)
 
 ### 📲 Android App
 
@@ -38,7 +38,7 @@ Try it online: [https://lapd87.github.io/euro-calc/](https://lapd87.github.io/eu
 ## ⚙️ How It Works
 
 - 🔧 Built with HTML/CSS/JavaScript
-- 🔁 Uses a fixed BGN→EUR conversion rate
+- 🔁 Uses a fixed BGN→EUR conversion rate of 1.95583
 - ❌ No popup alerts — error messages appear directly in the interface
 - 📦 Fully offline — no data connection needed, no permissions required
 
@@ -65,8 +65,7 @@ Try it online: [https://lapd87.github.io/euro-calc/](https://lapd87.github.io/eu
 
 ## ☕ Support
 
-If you find this tool useful, consider donating a coffee:  
-[https://tinyurl.com/avvx8d8u](https://tinyurl.com/avvx8d8u)
+If you find this tool useful, consider donating a coffee [here](https://tinyurl.com/avvx8d8u)
 
 ---
 
