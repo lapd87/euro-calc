@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-    <title>EUR ресто</title>
+    <meta charset="UTF-8">
+    <title>Custom Calculator</title>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -13,9 +13,6 @@
             border-radius: 10px;
             color: #333;
             background-image: url("./euro.png");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
         }
 
         h2 {
@@ -71,20 +68,24 @@
         button:hover {
             background-color: #6a5a8f;
         }
+
+        #error-message {
+            color: red; font-weight: bold; margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 
 <h2>Ресто Калкулатор</h2>
 
-<label for="price">Цена в ЛЕВА:</label>
+<label for="price">Цена в ЛЕВА (до 2 знака):</label>
 <input type="number" id="price" step="0.01" min="0.01" placeholder="примерно 12.34">
 <span class="currency-label">BGN</span>
 
-<label for="amountBGN">Платено в ЛЕВА:</label>
+<label for="amountBGN">Платено в ЛЕВА (до 2 знака):</label>
 <input type="number" id="amountBGN" step="0.01" min="0.01" placeholder="примерно 10.00">
 <span class="currency-label">BGN</span>
-<label for="amountEUR">Платено в ЕВРО:</label>
+<label for="amountEUR">Платено в ЕВРО (до 2 знака):</label>
 <input type="number" id="amountEUR" step="0.01" min="0.01" placeholder="примерно 2.00">
 <span class="currency-label">EUR</span>
 
@@ -95,6 +96,8 @@
 <label for="change">Ресто в ЕВРО:</label>
 <input type="text" id="change" readonly>
 <span class="currency-label">EUR</span>
+
+<div id="error-message"></div>
 
 <button id="btn" onclick="calculate()">Сметни</button>
 <button id="coffee" onclick="window.open('https://tinyurl.com/avvx8d8u')">Дарете кафе на програмиста :)</button>
@@ -120,12 +123,16 @@
     }
 
     function calculate() {
+        const errorMsgElement = document.getElementById('error-message');
+        errorMsgElement.innerText = "";
+
         let price = parseFloat(document.getElementById('price').value);
         let amountBGN = parseFloat(document.getElementById('amountBGN').value);
         let amountEUR = parseFloat(document.getElementById('amountEUR').value);
 
         if (isNaN(price) || (isNaN(amountBGN) && isNaN(amountEUR))) {
-            alert("Въведете валидни числа.");
+            // alert("Въведете валидни числа.");
+            errorMsgElement.innerText = "Въведете валидни числа.";
             return;
         }
 
@@ -135,14 +142,16 @@
 
         for (let num of [price, amountBGN, amountEUR]) {
             const parts = num.toString().split(".");
-            if ( parts.length === 2 && parts[1].length > 2) {
-                alert("Въведете числа с до 2 десетични знака.");
+            if (parts.length === 2 && parts[1].length > 2) {
+                // alert("Въведете числа с до 2 десетични знака.");
+                errorMsgElement.innerText = "Въведете числа с до 2 десетични знака.";
                 return;
             }
         }
 
         if (price <= 0 || (amountBGN <= 0 && amountEUR <= 0)) {
-            alert("Цената и поне едната платена сума трябва да са повече от 0.");
+            // alert("Цената и поне едната платена сума трябва да са повече от 0.");
+            errorMsgElement.innerText = "Цената и поне едната платена сума трябва да са повече от 0.";
             document.getElementById('result').value = '';
             return;
         }
